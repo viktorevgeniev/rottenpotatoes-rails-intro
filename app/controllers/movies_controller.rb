@@ -11,10 +11,16 @@ class MoviesController < ApplicationController
   end
 
   def index
+    @sort = params[:sort]
+
+    if params[:sort].nil? && params[:ratings].nil? &&
+      (!session[:sort].nil? || !session[:ratings].nil?)
+      redirect_to movies_path(:sort => session[:sort], :ratings => session[:ratings])
+    end
+    
     @ratings = params[:ratings]
     @all_ratings = Movie.ratings
 
-    @sort = params[:sort]
     @direction = (params[:direction] == "asc") ? "desc" : "asc"
 
     if @ratings.nil?
@@ -26,7 +32,8 @@ class MoviesController < ApplicationController
     if !@sort.nil?
       @movies = Movie.order("#{@sort} #{@direction}")
     end
-    
+    session[:ratings]
+    session[:sort]
 #    if @ratings.nil?
 #      @ratings = @all_ratings
 #    else
@@ -37,7 +44,7 @@ class MoviesController < ApplicationController
   end
 
   def new
-    # default: render 'new' template
+    session.clear
   end
 
   def create
