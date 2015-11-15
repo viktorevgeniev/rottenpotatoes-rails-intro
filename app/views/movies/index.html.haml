@@ -11,10 +11,10 @@
   %thead
     %tr
       %th#title_header{:class => ("hilite" if params[:sort] == "title")} 
-        = link_to "Movie Title", {:sort => "title", :direction => @direction}
+        = link_to "Movie Title", {:sort => "title", :direction => @direction, :id => 'title_header'}
       %th Rating
       %th#release_date_header{:class => ("hilite" if params[:sort] == "release_date")} 
-        = link_to "Release Date", {:sort => "release_date", :direction => @direction}
+        = link_to "Release Date", {:sort => "release_date", :direction => @direction, :id => 'release_date_header'}
       %th More Info
   %tbody
     - @movies.each do |movie|

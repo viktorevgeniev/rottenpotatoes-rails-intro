@@ -47,6 +47,9 @@ group :development, :test do
 
   gem 'rspec-rails'
   gem 'autotest'
+  gem 'nokogiri'
+  gem 'mechanize'
+  gem 'rspec'
 end
 
 group :production do
