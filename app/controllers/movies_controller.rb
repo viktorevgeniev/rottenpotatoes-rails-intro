@@ -34,13 +34,6 @@ class MoviesController < ApplicationController
     end
     session[:ratings]
     session[:sort]
-#    if @ratings.nil?
-#      @ratings = @all_ratings
-#    else
-#      @ratings = params[:ratings]
-#    end
-    
-    
   end
 
   def new
