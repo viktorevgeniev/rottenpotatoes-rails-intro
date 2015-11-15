@@ -11,12 +11,29 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all
+    @ratings = params[:ratings]
+    @all_ratings = Movie.ratings
+
     @sort = params[:sort]
     @direction = (params[:direction] == "asc") ? "desc" : "asc"
+
+    if @ratings.nil?
+      @movies = Movie.all
+    else
+      @movies = Movie.where(:rating => @ratings.keys).all
+    end
+   
     if !@sort.nil?
       @movies = Movie.order("#{@sort} #{@direction}")
     end
+    
+#    if @ratings.nil?
+#      @ratings = @all_ratings
+#    else
+#      @ratings = params[:ratings]
+#    end
+    
+    
   end
 
   def new
@@ -46,16 +63,5 @@ class MoviesController < ApplicationController
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
   end
-  
-  #def title_sort
-  #  @movies = Movie.all
-  #  @movies.order(:title)
-  #end
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
-  end
-  
-  def sort_column
-    Movie.column_names.include?(params[:sort]) ? params[:sort] : "title"
-  end
+
 end
