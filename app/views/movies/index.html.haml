@@ -5,16 +5,16 @@
   - @all_ratings.each do |rating|
     = rating
     = check_box_tag "ratings[#{rating}]", 1, if params[:ratings]; params[:ratings].include?(rating) else true end
-  = submit_tag 'Refresh', :id => "ratings_submit"
+  = submit_tag 'Refresh', :id => "ratings_submit" 
   
 %table#movies
   %thead
     %tr
       %th{:class => ("hilite" if params[:sort] == "title")} 
-        = link_to "Movie Title", {:sort => "title", :direction => @direction }, :id => "title_header"
+        = link_to "Movie Title", {:sort => "title", :direction => @direction, :ratings => @ratings }, :id => "title_header"
       %th Ratin
-      %th#release_date_header{:class => ("hilite" if params[:sort] == "release_date")} 
-        = link_to "Release Date", {:sort => "release_date", :direction => @direction}, :id => "release_date_header"
+      %th{:class => ("hilite" if params[:sort] == "release_date")} 
+        = link_to "Release Date", {:sort => "release_date", :direction => @direction, :ratings => @ratings}, :id => "release_date_header"
       %th More Info
   %tbody
     - @movies.each do |movie|
